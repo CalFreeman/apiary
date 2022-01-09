@@ -2,7 +2,9 @@ version: '3'
 services:
   postgres:
     image: postgres
+    # If you want to expose these ports outside your dev PC,
+    # remove the "127.0.0.1:" prefix
     ports:
-      - "5432:5432"
+      - 127.0.0.1:5432:5432
     environment:
       - POSTGRES_HOST_AUTH_METHOD=trust
