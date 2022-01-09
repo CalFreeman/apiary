@@ -10,6 +10,7 @@ $ docker-compose up -d
 > 26a6e42130f2   postgres   "docker-entrypoint.s…"   18 seconds ago   Up 16 seconds   0.0.0.0:5432->5432/tcp, :::5432->5432/tcp   postgres_postgres_1
 ## access container shell
 [@localhost apiary]$ docker exec -it postgres_postgres_1 bash
+root@481b504d9316:/# psql -U postgres
 ### create user and database
 > $su - postgres
 > 
