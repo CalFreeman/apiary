@@ -1,5 +1,8 @@
 package com.sbd.apiary.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -15,6 +18,11 @@ public class Farm extends AuditModel {
             initialValue = 1000
     )
     private Long id;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "farm_id")
+    @OrderBy("name")
+    private List<Apiary> apiarys = new ArrayList<>();
 
     @NotBlank
     @Size(min = 2, max = 100)
