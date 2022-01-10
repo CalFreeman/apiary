@@ -8,7 +8,7 @@ import javax.validation.constraints.Size;
 @Table(name = "apiarys")
 public class Apiary extends AuditModel {
     @Id
-    @GeneratedValue(generator = "apiry_generator")
+    @GeneratedValue(generator = "apiary_generator")
     @SequenceGenerator(
             name = "apiary_generator",
             sequenceName = "apiary_sequence",
