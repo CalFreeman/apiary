@@ -87,7 +87,7 @@ $ curl localhost:8080/actuator/health
   FROM 
      information_schema.columns
   WHERE 
-     table_name = 'apiarys';
+     table_name = 'farms';
   
   testdb=# TABLE apiarys;
 

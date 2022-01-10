@@ -29,7 +29,7 @@ public class ApiaryController {
 
     @PutMapping("/apiarys/{apiaryId}")
     public Apiary updateApiary(@PathVariable Long apiaryId,
-                                   @Valid @RequestBody Apiary apiaryRequest) {
+                               @Valid @RequestBody Apiary apiaryRequest) {
         return apiaryRepository.findById(apiaryId)
                 .map(apiary -> {
                     apiary.setName(apiaryRequest.getName());

@@ -14,37 +14,36 @@ import javax.validation.Valid;
 public class FarmController {
 
     @Autowired
-    private ApiaryRepository apiaryRepository;
+    private FarmRepository farmRepository;
 
-    @GetMapping("/apiarys")
-    public Page<Apiary> getApiary(Pageable pageable) {
-        return apiaryRepository.findAll(pageable);
+    @GetMapping("/farms")
+    public Page<Farm> getFarms(Pageable pageable) {
+        return farmRepository.findAll(pageable);
+    }
+
+    @PostMapping("/farms")
+    public Farm createFarm(@Valid @RequestBody Farm farm) {
+        return farmRepository.save(farm);
+    }
+
+    @PutMapping("/farms/{farmId}")
+    public Farm updateFarm(@PathVariable Long farmId,
+                                   @Valid @RequestBody Farm farmRequest) {
+        return farmRepository.findById(farmId)
+                .map(farm -> {
+                    farm.setName(farmRequest.getName());
+                    farm.setLocation(farmRequest.getLocation());
+                    return farmRepository.save(farm);
+                }).orElseThrow(() -> new ResourceNotFoundException("Farm not found with id " + farmId));
     }
 
 
-    @PostMapping("/apiarys")
-    public Apiary createApiary(@Valid @RequestBody Apiary apiary) {
-        return apiaryRepository.save(apiary);
-    }
-
-    @PutMapping("/apiarys/{apiaryId}")
-    public Apiary updateApiary(@PathVariable Long apiaryId,
-                                   @Valid @RequestBody Apiary apiaryRequest) {
-        return apiaryRepository.findById(apiaryId)
-                .map(apiary -> {
-                    apiary.setName(apiaryRequest.getName());
-                    apiary.setLocation(apiaryRequest.getLocation());
-                    return apiaryRepository.save(apiary);
-                }).orElseThrow(() -> new ResourceNotFoundException("Apiary not found with id " + apiaryId));
-    }
-
-
-    @DeleteMapping("/apiarys/{apiaryId}")
-    public ResponseEntity<?> deleteApiary(@PathVariable Long apiaryId) {
-        return apiaryRepository.findById(apiaryId)
-                .map(apiary -> {
-                    apiaryRepository.delete(apiary);
+    @DeleteMapping("/farms/{farmId}")
+    public ResponseEntity<?> deleteFarm(@PathVariable Long farmId) {
+        return farmRepository.findById(farmId)
+                .map(farm -> {
+                    farmRepository.delete(farm);
                     return ResponseEntity.ok().build();
-                }).orElseThrow(() -> new ResourceNotFoundException("Apiary not found with id " + apiaryId));
+                }).orElseThrow(() -> new ResourceNotFoundException("Apiary not found with id " + farmId));
     }
 }
