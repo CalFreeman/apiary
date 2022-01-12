@@ -19,9 +19,7 @@ public class Farm extends AuditModel {
     )
     private Long id;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "farm_id")
-    @OrderBy("name")
+    @OneToMany(mappedBy="farm", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Apiary> apiarys = new ArrayList<>();
 
     @NotBlank
