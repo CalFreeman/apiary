@@ -1,12 +1,17 @@
 package com.sbd.apiary.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+
 import java.util.ArrayList;
 import java.util.List;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 @Table(name = "apiarys")
@@ -21,8 +26,12 @@ public class Apiary extends AuditModel {
     private Long id;
 
     @JsonBackReference
-    @ManyToOne(cascade= CascadeType.ALL)
-    @JoinColumn(name = "farm_id", referencedColumnName  = "id")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "farm_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
+    @JsonIdentityReference(alwaysAsId=true)
+    @JsonProperty("farm_id")
     private Farm farm;
 
     @NotBlank

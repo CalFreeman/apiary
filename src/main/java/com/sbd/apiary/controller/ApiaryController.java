@@ -2,6 +2,7 @@ package com.sbd.apiary.controller;
 
 import com.sbd.apiary.exception.ResourceNotFoundException;
 import com.sbd.apiary.model.Apiary;
+import com.sbd.apiary.repository.FarmRepository;
 import com.sbd.apiary.repository.ApiaryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,6 +17,9 @@ public class ApiaryController {
     @Autowired
     private ApiaryRepository apiaryRepository;
 
+    @Autowired
+    private FarmRepository farmRepository;
+
     @GetMapping("/apiarys")
     public Page<Apiary> getApiary(Pageable pageable) {
         return apiaryRepository.findAll(pageable);
@@ -27,11 +31,14 @@ public class ApiaryController {
         return apiaryRepository.save(apiary);
     }
 
-    @PutMapping("/apiarys/{apiaryId}")
-    public Apiary updateApiary(@PathVariable Long apiaryId,
+    @PutMapping("farms/{farmId}/apiarys/{apiaryId}")
+    public Apiary updateApiary(@PathVariable (value = "farmId") Long farmId,
+                               @PathVariable (value = "apiaryId") Long apiaryId,
                                @Valid @RequestBody Apiary apiaryRequest) {
-        return apiaryRepository.findById(apiaryId)
-                .map(apiary -> {
+        if(!farmRepository.existsById(farmId)) {
+            throw new ResourceNotFoundException("FarmId " + farmId + " not found");
+        }
+        return apiaryRepository.findById(apiaryId).map(apiary -> {
                     apiary.setName(apiaryRequest.getName());
                     apiary.setLocation(apiaryRequest.getLocation());
                     return apiaryRepository.save(apiary);
