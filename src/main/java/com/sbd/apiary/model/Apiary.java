@@ -1,5 +1,7 @@
 package com.sbd.apiary.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -18,8 +20,9 @@ public class Apiary extends AuditModel {
     )
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "farm_id")
+    @JsonBackReference
+    @ManyToOne(cascade= CascadeType.ALL)
+    @JoinColumn(name = "farm_id", referencedColumnName  = "id")
     private Farm farm;
 
     @NotBlank
@@ -51,5 +54,13 @@ public class Apiary extends AuditModel {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+    public Farm getFarm()
+    {
+        return farm;
+    }
+    public void setFarm(Farm farm)
+    {
+        this.farm = farm;
     }
 }

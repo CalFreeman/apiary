@@ -1,5 +1,7 @@
 package com.sbd.apiary.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,10 +21,11 @@ public class Farm extends AuditModel {
     )
     private Long id;
 
-    @OneToMany(mappedBy="farm", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonBackReference
+    @OneToMany(mappedBy="farm")
     private List<Apiary> apiarys = new ArrayList<>();
 
-    @NotBlank
+    @NotBlank      
     @Size(min = 2, max = 100)
     private String name;
 
@@ -51,5 +54,13 @@ public class Farm extends AuditModel {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public List<Apiary> getApiarys() {
+        return apiarys;
+    }
+
+    public void setApiarys(List<Apiary> apiarys) {
+        this.apiarys = apiarys;
     }
 }
