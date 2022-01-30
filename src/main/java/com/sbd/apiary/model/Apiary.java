@@ -17,21 +17,12 @@ import org.hibernate.annotations.OnDeleteAction;
 @Table(name = "apiarys")
 public class Apiary extends AuditModel {
     @Id
-    @GeneratedValue(generator = "apiary_generator")
-    @SequenceGenerator(
-            name = "apiary_generator",
-            sequenceName = "apiary_sequence",
-            initialValue = 1000
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "farm_id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
-    @JsonIdentityReference(alwaysAsId=true)
-    @JsonProperty("farm_id")
+    @JoinColumn(name = "farm_id", referencedColumnName = "id")
     private Farm farm;
 
     @NotBlank

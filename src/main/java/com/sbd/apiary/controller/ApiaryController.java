@@ -25,7 +25,6 @@ public class ApiaryController {
         return apiaryRepository.findAll(pageable);
     }
 
-
     @PostMapping("/apiarys")
     public Apiary createApiary(@Valid @RequestBody Apiary apiary) {
         return apiaryRepository.save(apiary);

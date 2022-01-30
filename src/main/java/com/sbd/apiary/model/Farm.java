@@ -1,6 +1,7 @@
 package com.sbd.apiary.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,16 +14,11 @@ import javax.validation.constraints.Size;
 @Table(name = "farms")
 public class Farm extends AuditModel {
     @Id
-    @GeneratedValue(generator = "farm_generator")
-    @SequenceGenerator(
-            name = "farm_generator",
-            sequenceName = "farm_sequence",
-            initialValue = 1000
-    )
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @JsonBackReference
-    @OneToMany(mappedBy="farm")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "farm", cascade = CascadeType.ALL)
     private List<Apiary> apiarys = new ArrayList<>();
 
     @NotBlank      
