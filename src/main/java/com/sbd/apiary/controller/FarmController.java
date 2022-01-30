@@ -33,10 +33,10 @@ public class FarmController {
                 .map(farm -> {
                     farm.setName(farmRequest.getName());
                     farm.setLocation(farmRequest.getLocation());
+                    farm.setApiarys(farmRequest.getApiarys());
                     return farmRepository.save(farm);
                 }).orElseThrow(() -> new ResourceNotFoundException("Farm not found with id " + farmId));
     }
-
 
     @DeleteMapping("/farms/{farmId}")
     public ResponseEntity<?> deleteFarm(@PathVariable Long farmId) {
