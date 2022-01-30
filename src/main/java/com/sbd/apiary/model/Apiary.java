@@ -8,10 +8,6 @@ import javax.validation.constraints.Size;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.validation.constraints.NotNull;
-
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 @Table(name = "apiarys")
@@ -20,10 +16,15 @@ public class Apiary extends AuditModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JsonBackReference
+    // @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "farm_id", referencedColumnName = "id")
     private Farm farm;
+
+    // @JsonManagedReference
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "apiary", cascade = CascadeType.ALL)
+    private List<Hive> hives = new ArrayList<>();
+
 
     @NotBlank
     @Size(min = 2, max = 100)
@@ -55,12 +56,22 @@ public class Apiary extends AuditModel {
     public void setLocation(String location) {
         this.location = location;
     }
+
     public Farm getFarm()
     {
         return farm;
     }
+
     public void setFarm(Farm farm)
     {
         this.farm = farm;
+    }
+
+    public List<Hive> getHives() {
+        return hives;
+    }
+
+    public void setHives(List<Hive> hives) {
+        this.hives = hives;
     }
 }

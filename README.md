@@ -92,3 +92,13 @@ $ curl localhost:8080/actuator/health
   testdb=# TABLE apiarys;
 
   
+//DATABASE
+POST:
+http://localhost:8080/apiarys
+{
+  "name": "apyName1",
+  "location": "apyloc1",
+    "farm":{
+      "id": "1"
+    }
+}
