@@ -10,7 +10,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     private final long MAX_AGE_SECS = 3600;
 
-    @Value("${app.cors.allowedOrigins}")
+    @Value("${app.cors.allowedOrigins}") //set in application.properties
     private String[] allowedOrigins;
 
     @Override
