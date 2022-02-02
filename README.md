@@ -27,7 +27,17 @@ root@26a6e42130f2:/# psql -d testdb -U myuser
 ## healthcheck
 $ curl localhost:8080/actuator/health
 
-+hive
+## /api/
+### /auth/signup
+> {
+>   "name": "testname2",
+>   "username": "testuserName2",
+>   "email": "testuser2@email.com",
+>   "password": "password"
+> }
+
+> 
+>+hive
   +id
   +Nickname
   +Assessment
@@ -74,13 +84,13 @@ $ curl localhost:8080/actuator/health
 
   
   ---
-  postgres=# DROP DATABASE testdb;
+  >postgres=# DROP DATABASE testdb;
   postgres=# CREATE DATABASE testdb OWNER myuser;
   postgres-# \l
   postgres=# /c testdb
   testdb-# \d apiarys
 
-  SELECT 
+  >SELECT 
     table_name, 
     column_name, 
     data_type 
@@ -92,10 +102,14 @@ $ curl localhost:8080/actuator/health
   testdb=# TABLE apiarys;
 
   
-//DATABASE
-POST:
-http://localhost:8080/apiarys
-{
+##DATABASE
+#### Creating Default Roles
+>INSERT INTO roles(name) VALUES('ROLE_USER');
+INSERT INTO roles(name) VALUES('ROLE_ADMIN');
+
+####Posting new apiary with farm FK_id
+#####POST:http://localhost:8080/apiarys
+>{
   "name": "apyName1",
   "location": "apyloc1",
     "farm":{
