@@ -50,14 +50,14 @@ postgres=# CREATE DATABASE testdb OWNER myuser;
 postgres-# \l //List  
 postgres=# /c testdb  
 testdb-# \d apiarys  
->
->SELECT  
-table_name,  
-column_name,  
-data_type  
-FROM  
-information_schema.columns  
-WHERE  
-table_name = 'farms';  
->
->testdb=# TABLE apiarys;
+>#### pragmatic way of displaying table info
+>    >SELECT  
+>    table_name,  
+>    column_name,  
+>    data_type  
+>    FROM  
+>    information_schema.columns  
+>    WHERE  
+>    table_name = 'farms';  
+> ###List rows?
+>       testdb=# TABLE apiarys;
