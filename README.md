@@ -2,6 +2,15 @@
 > $ cd /apiary/docker/postgres  
 $ docker-compose up -d  
 >  goto http://localhost:5050/login to access pgadmin ui  
+> ### Connecting pgadmin to postgres
+> $docker network ls  //find the bridge between postgres   
+> 6845bc55d171   postgres_default   bridge    local  
+> $ docker network inspect postgres_default  
+> //find "Containers":{ 
+>   "<container hash>"
+>       "Name": "postgres_pgadmin_1", ...  
+>       "IPv4Address": "172.18.0.3/16",  
+> //grab this IPv4Address for using to connecting pgadmin to postgresql db container
 
 ###$ Find postgres container id &/or name 
 > [@localhost postgres]$ docker ps      
@@ -45,13 +54,13 @@ $ docker-compose up -d
 >          }
 >        }
 ---
-> ###$ Alternate DB Creation //why is this here?
+> ###$ Alternate DB Creation //programmatically
 >postgres=# DROP DATABASE testdb;  
 postgres=# CREATE DATABASE testdb OWNER myuser;  
 postgres-# \l //List  
 postgres=# /c testdb  
 testdb-# \d apiarys  
->#### pragmatic way of displaying table info
+>#### programmatic way of displaying table info
 >    >SELECT  
 >    table_name,  
 >    column_name,  
@@ -60,5 +69,5 @@ testdb-# \d apiarys
 >    information_schema.columns  
 >    WHERE  
 >    table_name = 'farms';  
-> ###List rows?
+> ###for listing rows?
 >       testdb=# TABLE apiarys;
