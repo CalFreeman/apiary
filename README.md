@@ -1,6 +1,7 @@
 ###$ Launch postgres server via docker-compose
 > $ cd /apiary/docker/postgres  
-$ docker-compose up -d
+$ docker-compose up -d  
+>  goto http://localhost:5050/login to access pgadmin ui  
 
 ###$ Find postgres container id &/or name 
 > [@localhost postgres]$ docker ps      
