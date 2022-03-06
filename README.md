@@ -11,7 +11,7 @@ $ docker-compose up -d
 >       "Name": "postgres_pgadmin_1", ...  
 >       "IPv4Address": "172.18.0.3/16",  
 > //grab this IPv4Address for using to connecting pgadmin to postgresql db container
-
+> password of db is root for testing, verify the IPV4 if unable to connect.
 ###$ Find postgres container id &/or name 
 > [@localhost postgres]$ docker ps      
 > ` |26a6e42130f2 |  postgres  | "docker-entrypoint.s…"  | 18 seconds ago  | Up 16 seconds  | 0.0.0.0:5432->5432/tcp, :::5432->5432/tcp  | postgres_postgres_1 `
