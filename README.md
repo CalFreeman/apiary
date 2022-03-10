@@ -1,3 +1,7 @@
+### maven to compile and run
+> mvn compile
+> mvn spring-boot:run
+
 ###$ Launch postgres server via docker-compose
 > $ cd /apiary/docker/postgres  
 $ docker-compose up -d  
@@ -71,3 +75,4 @@ testdb-# \d apiarys
 >    table_name = 'farms';  
 > ###for listing rows?
 >       testdb=# TABLE apiarys;
+
