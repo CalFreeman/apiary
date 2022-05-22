@@ -76,3 +76,9 @@ testdb-# \d apiarys
 > ###for listing rows?
 >       testdb=# TABLE apiarys;
 
+---Fresh Linux---
+1. Install Docker
+2. Install Docker-compose
+    https://docs.docker.com/compose/install/
+3. Install postgresql
+    https://www.postgresql.org/download/linux/redhat/
